@@ -1,8 +1,8 @@
 {
   "name": "mini-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "todo",
+  "description": "一个基于Taro3.0.0的mobx+ts+react开发模板",
   "templateInfo": {
     "name": "mobx",
     "typescript": true,
@@ -32,7 +32,7 @@
     "Android >= 4.1",
     "ios >= 8"
   ],
-  "author": "",
+  "author": "c690554125",
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
