@@ -38,9 +38,7 @@ class CounterStore extends PagesCommonStore {
     try {
       const res = await this.pageInitRequest<[WeatherType, boolean]>(
         Promise.all([
-          request.get(
-            'http://wthrcdn.etouch.cn/weather_mini?citykey=101010100'
-          ),
+          request.get('/weather_mini?citykey=101010100'),
           delay(2000)
         ])
       );

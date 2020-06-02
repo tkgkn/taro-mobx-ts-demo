@@ -1,7 +1,8 @@
 /* eslint-disable import/no-commonjs */
 
-// const path = require('path');
+const path = require('path');
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const CopyWebpackPlugin = require('./plugins/CopyPlugin');
 
 const config = {
   projectName: 'mini-app',
@@ -14,7 +15,14 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  plugins: [
+    // 实现部分静态资源从src到dist目录的复制
+    new CopyWebpackPlugin({
+      files: ['ext.json'],
+      from: path.resolve(__dirname, '../src/'),
+      to: path.resolve(__dirname, '../dist/')
+    })
+  ],
   defineConstants: {},
   copy: {
     patterns: [],

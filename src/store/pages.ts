@@ -7,15 +7,13 @@ class PagesCommonStore {
   async pageInitRequest<T = any>(callback): Promise<T> {
     try {
       const res = await callback;
-      runInAction(() => {
-        this.pageLoading = false;
-      });
       return res;
     } catch (error) {
+      return Promise.reject(error);
+    } finally {
       runInAction(() => {
         this.pageLoading = false;
       });
-      return Promise.reject(error);
     }
   }
 

@@ -6,6 +6,10 @@ interface OptionalRequestParams extends Partial<Taro.RequestParams> {
 
 type PartialRequestParams = Partial<Taro.RequestParams>;
 
+type CustomConfig = {
+  baseUrl?: string;
+};
+
 interface customRequestParams extends Taro.RequestParams {
   [key: string]: any;
 }
@@ -27,6 +31,8 @@ class TaroRequest {
 
   runConfig: Taro.RequestParams;
 
+  customConfig: CustomConfig;
+
   promiseChain: interceptor[];
 
   constructor(config?: PartialRequestParams) {
@@ -43,10 +49,15 @@ class TaroRequest {
         resolved: this.request
       }
     ];
+    this.customConfig = {};
   }
 
   request = async () => {
-    return await Taro.request(this.runConfig);
+    const { baseUrl } = this.customConfig;
+    return await Taro.request({
+      ...this.runConfig,
+      url: baseUrl + this.runConfig.url
+    });
   };
 
   run = async <T>() => {
@@ -109,6 +120,10 @@ TaroRequestInstance.requestInterceptor(function(config) {
   if (config.header) {
     config.header['content-type'] =
       'application/x-www-form-urlencoded;charset=utf-8';
+  }
+  // 编写设置baseUrl的逻辑
+  if (TaroRequestInstance.customConfig.baseUrl === undefined) {
+    TaroRequestInstance.customConfig.baseUrl = 'http://wthrcdn.etouch.cn';
   }
   return Promise.resolve(config);
 });
