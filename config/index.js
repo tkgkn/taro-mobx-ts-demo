@@ -2,7 +2,6 @@
 
 const path = require('path');
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const CopyWebpackPlugin = require('./plugins/CopyPlugin');
 
 const config = {
   projectName: 'mini-app',
@@ -17,11 +16,14 @@ const config = {
   outputRoot: 'dist',
   plugins: [
     // 实现部分静态资源从src到dist目录的复制
-    new CopyWebpackPlugin({
-      files: ['ext.json'],
-      from: path.resolve(__dirname, '../src/'),
-      to: path.resolve(__dirname, '../dist/')
-    })
+    [
+      path.resolve(__dirname, './plugins/CopyPlugin'),
+      {
+        files: ['ext.json'],
+        from: path.resolve(__dirname, '../src/'),
+        to: path.resolve(__dirname, '../dist/')
+      }
+    ]
   ],
   defineConstants: {},
   copy: {
@@ -50,7 +52,7 @@ const config = {
       }
     },
     webpackChain(chain) {
-      // 给moduel.scss增加d.ts
+      // 给moduel.sass增加d.ts
       chain.module
         .rule('sass')
         .oneOf('0')
@@ -60,6 +62,21 @@ const config = {
       // 给.scss增加d.ts
       chain.module
         .rule('sass')
+        .oneOf('1')
+        .use('@teamsupercell/typings-for-css-modules-loader')
+        .loader('@teamsupercell/typings-for-css-modules-loader')
+        .before('1');
+
+      // 给moduel.scss增加d.ts
+      chain.module
+        .rule('scss')
+        .oneOf('0')
+        .use('@teamsupercell/typings-for-css-modules-loader')
+        .loader('@teamsupercell/typings-for-css-modules-loader')
+        .before('1');
+      // 给.scss增加d.ts
+      chain.module
+        .rule('scss')
         .oneOf('1')
         .use('@teamsupercell/typings-for-css-modules-loader')
         .loader('@teamsupercell/typings-for-css-modules-loader')

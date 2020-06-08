@@ -14,10 +14,6 @@ module.exports = {
     enable: true,
     config: {}
   },
-  mini: {
-    compile: {
-      compressTemplate: true
-    }
-  },
+  mini: {},
   h5: {}
 };

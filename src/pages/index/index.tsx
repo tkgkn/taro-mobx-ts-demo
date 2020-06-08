@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from 'mobx-react';
 import { CounterStoreType, TestStoreType } from 'src/store';
+import PageStatus from 'src/pages/common/pageStatus/pageStatus';
 // import request from 'src/utils/request';
 
 import styles from './index.module.scss';
@@ -37,11 +38,10 @@ class Index extends Component<{
   };
 
   render() {
-    const { counter, pageLoading } = this.props.counterStore;
+    const { counter } = this.props.counterStore;
     const { name } = this.props.testStore;
     return (
       <View className={styles.index}>
-        {pageLoading ? <Text>Loading中，请等待</Text> : null}
         <Button onClick={this.increment}>+</Button>
         <Button onClick={this.decrement}>-</Button>
         <Button onClick={this.incrementAsync}>Add Async</Button>
@@ -54,6 +54,7 @@ class Index extends Component<{
         </Button>
         <Text>{counter}</Text>
         <Text>{name}</Text>
+        <PageStatus {...this.props.counterStore.pageStatus} />
       </View>
     );
   }

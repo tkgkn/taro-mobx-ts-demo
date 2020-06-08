@@ -1,7 +1,7 @@
 import { observable, action, runInAction } from 'mobx';
 import request from 'src/utils/request';
 import { delay } from 'src/utils';
-import PagesCommonStore from './pages';
+import PagesCommonStore from './common/pages';
 
 type WeatherType = {
   city: string;

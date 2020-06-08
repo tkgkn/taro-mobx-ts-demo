@@ -4,6 +4,7 @@ declare namespace AppScssModule {
     mappings: string;
     names: string;
     sources: string;
+    sourcesContent: string;
     version: string;
   }
 }
