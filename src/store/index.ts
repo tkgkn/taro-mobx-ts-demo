@@ -31,4 +31,11 @@ export type StoreType = typeof StoreIns;
 export type CounterStoreType = typeof StoreIns.counterStore;
 export type TestStoreType = typeof StoreIns.testStore;
 
+// 非页面级别的store请自行添加，我这里列举了testStore
+type excludeNoPageStoreKeys = 'testStore';
+export type paegStoresKey = Exclude<keyof Store, excludeNoPageStoreKeys>;
+
+// 页面级别的store整合下
+export type PageStoresType = CounterStoreType;
+
 export default StoreIns;

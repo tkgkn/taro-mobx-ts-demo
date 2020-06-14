@@ -50,21 +50,9 @@ increment();
 
 ### 通用页面加载状态，Toast
 
-需要配合`pages/common/pageStatus`组件，在页面中引入该组件，放在每个页面中`render`的最后即可，需要接收整个`PagesCommonStore`状态对象。如下：
+已更新为**修饰器语法**，见下面的更新记录。
 
-```js
-import PageStatus from 'src/pages/common/pageStatus`
-
-@inject('pageStore')
-class Page {
-  render() {
-    <View>
-      ...
-      <PageStatus ...{this.props.pageStore.pageStatus}>
-    </View>
-  }
-}
-```
+~~需要配合`pages/common/pageStatus`组件，在页面中引入该组件，放在每个页面中`render`的最后即可，需要接收整个`PagesCommonStore`状态对象。如下：~~
 
 - `setPageStatus(status: boolean)`，提供手动操作`loading, error, toast`的方法。
 
@@ -87,6 +75,10 @@ class Page {
 - `dev`和`prod`下，编译的`scss`样式文件不一致，比如多行文本省略号用到的`-webkit-box-orient`属性，`prod`下丢失。升级至`3.0.0 rc3`版本正常。
 - 优化通用`pages`状态，增加`toast`控制（每个页面大概率肯定会有 toast），相应的需要配合一个基本的`pageStatus`组件，因为微信无法做到全局组件调用，自带的全局 toast 方法局限性较大。
 - 引入`taro-ui@next`版本（包会变大，用户自己选择）
+
+## 2020/06/14
+
+- 原通用页面加载状态，Toast 已经更新为修饰器语法。使用方式如下`@pageStatusHoc(pageStoreType)`，接受一个参数，指定当前页面组件的页面状态用的是哪个 store，具备`TS`提示功能，列举了仅仅是页面级别的`store`的键名，如果有其他非页面级`store`，自己可以在`src/store/index.ts`中配置。
 
 # 声明
 

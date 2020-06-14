@@ -36,13 +36,12 @@ class CounterStore extends PagesCommonStore {
   @action.bound
   async getList() {
     try {
-      const res = await this.pageInitRequest<[WeatherType, boolean]>(
+      await this.pageInitRequest<[WeatherType, boolean]>(
         Promise.all([
           request.get('/weather_mini?citykey=101010100'),
           delay(2000)
         ])
       );
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
