@@ -26,6 +26,14 @@ class Index extends Component<{
 
   componentDidHide() {}
 
+  config = {
+    onReachBottomDistance: 50
+  };
+
+  onReachBottom() {
+    console.log('触发onReachBottom');
+  }
+
   increment = () => {
     this.props.counterStore.increment();
   };
@@ -55,6 +63,13 @@ class Index extends Component<{
         </Button>
         <Text>{counter}</Text>
         <Text>{name}</Text>
+        <View
+          style={{
+            height: 900
+          }}
+        >
+          一个撑高度的盒子
+        </View>
       </View>
     );
   }

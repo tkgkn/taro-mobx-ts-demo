@@ -32,15 +32,15 @@ function PageStatusComp(props: PageStatusType) {
 }
 
 const pageStatusHoc = (pageStoreType: paegStoresKey) => (
-  WrappedComp: React.ComponentType
+  WrappedComp: React.ComponentClass
 ): any =>
-  class extends React.Component {
+  class extends WrappedComp {
     render() {
       const curPageStore = this.props[pageStoreType] as PageStoresType;
       const { pageStatus } = curPageStore;
       return (
         <View>
-          <WrappedComp {...this.props}></WrappedComp>
+          {super.render()}
           <PageStatusComp {...pageStatus} />
         </View>
       );
