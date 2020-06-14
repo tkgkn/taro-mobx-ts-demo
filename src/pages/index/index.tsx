@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from '@tarojs/components';
-import { observer, inject } from 'mobx-react';
+import { inject } from 'mobx-react';
 import { CounterStoreType, TestStoreType } from 'src/store';
 import pageStatusHoc from 'src/pages/common/pageStatus/pageStatusHoc';
 // import request from 'src/utils/request';
@@ -8,7 +8,6 @@ import pageStatusHoc from 'src/pages/common/pageStatus/pageStatusHoc';
 import styles from './index.module.scss';
 
 @inject('counterStore', 'testStore')
-@observer
 @pageStatusHoc('counterStore')
 class Index extends Component<{
   counterStore: CounterStoreType;

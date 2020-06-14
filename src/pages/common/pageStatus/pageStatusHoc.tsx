@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtLoadMore, AtIcon, AtToast } from 'taro-ui';
 import { PageStatusType } from 'src/store/common/pages';
+import { observer } from 'mobx-react';
 import { classnames } from 'src/utils';
 import { PageStoresType, paegStoresKey } from 'src/store';
 
@@ -34,17 +35,21 @@ function PageStatusComp(props: PageStatusType) {
 const pageStatusHoc = (pageStoreType: paegStoresKey) => (
   WrappedComp: React.ComponentClass
 ): any =>
-  class extends WrappedComp {
-    render() {
-      const curPageStore = this.props[pageStoreType] as PageStoresType;
-      const { pageStatus } = curPageStore;
-      return (
-        <View>
-          {super.render()}
-          <PageStatusComp {...pageStatus} />
-        </View>
-      );
+  // observer只包括最直接的组件，这里pageStatusHoc本身用到了observable的数据pageStatus，WrappedComp也用到了store层数据，所以在这里observer。
+  // 页面级别的地方因此不再需要observer
+  observer(
+    class extends WrappedComp {
+      render() {
+        const curPageStore = this.props[pageStoreType] as PageStoresType;
+        const { pageStatus } = curPageStore;
+        return (
+          <View>
+            {super.render()}
+            <PageStatusComp {...pageStatus} />
+          </View>
+        );
+      }
     }
-  };
+  );
 
 export default pageStatusHoc;
