@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from 'mobx-react';
 import { CounterStoreType, TestStoreType } from 'src/store';
-import PageStatus from 'src/pages/common/pageStatus/pageStatus';
+import pageStatusHoc from 'src/pages/common/pageStatus/pageStatusHoc';
 // import request from 'src/utils/request';
 
 import styles from './index.module.scss';
 
 @inject('counterStore', 'testStore')
 @observer
+@pageStatusHoc('counterStore')
 class Index extends Component<{
   counterStore: CounterStoreType;
   testStore: TestStoreType;
@@ -54,7 +55,6 @@ class Index extends Component<{
         </Button>
         <Text>{counter}</Text>
         <Text>{name}</Text>
-        <PageStatus {...this.props.counterStore.pageStatus} />
       </View>
     );
   }
