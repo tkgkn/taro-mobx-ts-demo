@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components';
 import { AtLoadMore, AtIcon, AtToast } from 'taro-ui';
 import { PageStatusType } from 'src/store/common/pages';
 import { classnames } from 'src/utils';
-import { PageStoresType } from 'src/store';
+import { PageStoresType, paegStoresKey } from 'src/store';
 
 import styles from './pageStatus.module.scss';
 
@@ -31,7 +31,7 @@ function PageStatusComp(props: PageStatusType) {
   );
 }
 
-const pageStatusHoc = (pageStoreType: string) => (
+const pageStatusHoc = (pageStoreType: paegStoresKey) => (
   WrappedComp: React.ComponentType
 ): any =>
   class extends React.Component {
