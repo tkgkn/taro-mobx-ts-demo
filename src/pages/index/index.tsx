@@ -58,7 +58,7 @@ class Index extends Component<{
             this.props.testStore.name = '违规操作试试';
           }}
         >
-          违规操作
+          不使用action修改store
         </Button>
         <Text>{counter}</Text>
         <Text>{name}</Text>
