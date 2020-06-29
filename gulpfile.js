@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const uglify = require('gulp-uglify');
 const cssnano = require('gulp-cssnano');
 const htmlClean = require('gulp-htmlclean');
+const imageMin = require('gulp-imagemin');
 const del = require('del');
 
 function minifyJS() {
@@ -31,6 +32,13 @@ function minifyHTML() {
     .pipe(gulp.dest('./build'));
 }
 
+function minifyImg() {
+  return gulp
+    .src(['dist/**/*.png', 'dist/**/*.jpg'])
+    .pipe(imageMin())
+    .pipe(gulp.dest('./build/'));
+}
+
 function copyOther() {
   return gulp
     .src(['dist/**/*.map', 'dist/**/*.json', 'dist/**/*.wxs'])
@@ -53,7 +61,7 @@ gulp.task(
   'build',
   gulp.series(
     cleanBuild,
-    gulp.parallel(minifyJS, minifyCSS, minifyHTML, copyOther),
+    gulp.parallel(minifyJS, minifyCSS, minifyHTML, minifyImg, copyOther),
     cleanDist,
     carry
   )
